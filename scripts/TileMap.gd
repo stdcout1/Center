@@ -25,14 +25,14 @@ var items = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var x = 1
+	var x = 0
 	for i in gen_list:
 		x+=1
 		for p in i:
 			for e in range(pow(x,5)):
-				
 				world_vals.append(p)	
-
+			print(pow(x,5))
+	print(world_vals)
 	pass # Replace with function body.
 
 
