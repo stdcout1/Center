@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-
 var velocity: = Vector2.ZERO
 var jump_vel: = -1000
 var gravity: = 4000
@@ -15,6 +14,10 @@ func _physics_process(delta):
 		velocity.x += speed
 	if Input.is_action_pressed("move_left"):
 		velocity.x -= speed
+	if Input.is_action_pressed("move_down"):
+		gravity = 200
+		$CollisionShape2D.disabled = !$CollisionShape2D.disabled
+		velocity.y += 10
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	if is_on_floor():
