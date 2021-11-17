@@ -19,6 +19,7 @@ var done = NAN
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print(Player.position.y)
 	gen_m()
 	pass # Replace with function body.
 func gen_t(line):
@@ -34,19 +35,32 @@ func gen_m():
 		gen_t(i)
 	var mid = Vector2(int(RES_X/2),int(RES_Y/2))
 	Player.position = mid
+	
 	print(mid)
 	#Map.set_cellv(Map.world_to_map(mid),3)
 	#clear landing area
 	Map.set_cell(int(RES_X/(block_size*2)), int(RES_Y/(block_size*2)),-1)
-	Map.set_cell(int(RES_X/(block_size*2))+1, int(RES_Y/(block_size*2))+1,-1)
+	#Map.set_cell(int(RES_X/(block_size*2))+1, int(RES_Y/(block_size*2))+1,-1)
 	Map.set_cell(int(RES_X/(block_size*2))+1, int(RES_Y/(block_size*2)),-1)
 	Map.set_cell(int(RES_X/(block_size*2))+1, int(RES_Y/(block_size*2))-1,-1)
-	Map.set_cell(int(RES_X/(block_size*2))-1, int(RES_Y/(block_size*2))+1,-1)
+	#Map.set_cell(int(RES_X/(block_size*2))-1, int(RES_Y/(block_size*2))+1,-1)
 	Map.set_cell(int(RES_X/(block_size*2))-1, int(RES_Y/(block_size*2)),-1)
 	Map.set_cell(int(RES_X/(block_size*2))-1, int(RES_Y/(block_size*2))-1,-1)
-	Map.set_cell(int(RES_X/(block_size*2)), int(RES_Y/(block_size*2))+1,-1)
+	#Map.set_cell(int(RES_X/(block_size*2)), int(RES_Y/(block_size*2))+1,-1)
 	Map.set_cell(int(RES_X/(block_size*2)), int(RES_Y/(block_size*2))-1,-1)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+var do = false
+func _process(delta):
+	var offset = Map.world_to_map(Player.position) + Vector2(0,int(RES_Y/(block_size*2)))
+	#print(offset.y,' ', done)
+	if Map.get_cellv(offset) == -1 and done <= offset.y:
+		print(offset.y)
+		done += 1
+		gen_t(offset.y)
+	#print(prev_y)
+	if offset.y >= 30 and !do:
+		do = true
+		GlobalTileMap.gen_list[0].append("3")
+		GlobalTileMap.gen()
+
