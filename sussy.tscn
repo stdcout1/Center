@@ -11,15 +11,16 @@ extents = Vector2( 10, 12.7437 )
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 114.815, 48.4649 )
+position = Vector2( 0.201378, -0.0930405 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 113.569, 48.4602 )
+position = Vector2( -1.04462, -0.0977402 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2( 122.713, 46.3869 )
-enabled = true
-cast_to = Vector2( 0, 15 )
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

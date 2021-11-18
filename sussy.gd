@@ -1,33 +1,51 @@
 extends KinematicBody2D
 
-const MOVE_SPEED = 400
-const GRAVITY = 50
-const FLOOR = Vector2 (0, - 1)
+# Node references
+var player
+# Random number generator
+var rng = RandomNumberGenerator.new()
 
-var velocity = Vector2()
-
-var direction = 1
+# Movement variables
+export var speed = 400
+var direction : Vector2
+var last_direction = Vector2(0, 1)
+var bounce_countdown = 0
 
 func _ready():
-	pass 
+	player = get_tree().root.get_node("Node2D/Player")
+	rng.randomize()
+	
+func _on_Timer_timeout():
+	# Calculate the position of the player relative to the skeleton
+	var player_relative_position = player.position - position
+	
+	if player_relative_position.length() <= 16:
+		# If player is near, don't move but turn toward it
+		direction = Vector2.ZERO
+		last_direction = player_relative_position.normalized()
+	elif player_relative_position.length() <= 100 and bounce_countdown == 0:
+		# If player is within range, move toward it
+		direction = player_relative_position.normalized()
+	elif bounce_countdown == 0:
+		# If player is too far, randomly decide whether to stand still or where to move
+		var random_number = rng.randf()
+		if random_number < 0.05:
+			direction = Vector2.ZERO
+		elif random_number < 0.1:
+			direction = Vector2.DOWN.rotated(rng.randf() * 2 * PI)
+	
+	# Update bounce countdown
+	if bounce_countdown > 0:
+		bounce_countdown = bounce_countdown - 1
 
 func _physics_process(delta):
-	velocity.x = MOVE_SPEED * direction
+	var movement = direction * speed * delta
 	
-	velocity.y += GRAVITY
+	var collision = move_and_collide(movement)
 	
-	velocity = move_and_slide(velocity, FLOOR)
-	
-	if is_on_wall():
-		direction = direction * -1
-		$RayCast2D.position.x *= -1
+	if collision != null and collision.collider.name != "Player": #CHECK IF RAN INTO WALL
+		direction = direction.rotated(rng.randf_range(PI/4, PI/2)) #CICLE BOUNCE PI COOLIO
+		bounce_countdown = rng.randi_range(2, 5)
+	if collision and collision.collider.name == "Player":
+		print('dead')
 		
-		$Sprite.flip_h = !$Sprite.flip_h
-		
-	if $RayCast2D.is_colliding() == false:
-		direction = direction * -1
-		$RayCast2D.position.x *= -1
-		
-	
-
-
