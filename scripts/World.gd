@@ -23,7 +23,8 @@ func _ready():
 	gen_m()
 	pass # Replace with function body.
 func gen_t(line):
-	
+	addtogen([0,30], '3', 2)
+	addtogen([30,INF], '3', 0)
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	for i in range(0,int(RES_X/block_size)):
@@ -59,8 +60,15 @@ func _process(delta):
 		done += 1
 		gen_t(offset.y)
 	#print(prev_y)
-	if offset.y >= 30 and !do:
-		do = true
-		GlobalTileMap.gen_list[0].append("3")
-		GlobalTileMap.gen()
+	
+	
 
+func addtogen(rag: Array , thing: String, level: int):
+	var offset = Map.world_to_map(Player.position) + Vector2(0,int(RES_Y/(block_size*2)))
+	if offset.y >= rag[0] and offset.y <= rag[1]:
+		if thing in GlobalTileMap.gen_list[level]:
+			return
+		GlobalTileMap.gen_list[level].append(thing)
+	elif thing in GlobalTileMap.gen_list[level]:
+		GlobalTileMap.gen_list[level].erase(thing)
+	GlobalTileMap.gen()
