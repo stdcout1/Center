@@ -6,7 +6,9 @@ extends TileMap
 # var b = "text"
 
 const gen_list = [
-	["1"], #rare
+	[],
+	["1"],
+	[], #rare
 	["0"], #common
 	["2"] #world
 ]

@@ -15,7 +15,7 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_left"):
 		velocity.x -= speed
 	if Input.is_action_pressed("move_down"):
-		gravity = 200
+		gravity = 40
 		$CollisionShape2D.disabled = !$CollisionShape2D.disabled
 		velocity.y += 10
 	velocity.y += gravity * delta
