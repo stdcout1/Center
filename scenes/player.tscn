@@ -1,16 +1,87 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://blocks/hubertium-Sheet.png" type="Texture" id=1]
+[ext_resource path="res://items/dasjhdajks-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://scripts/player.gd" type="Script" id=2]
+[ext_resource path="res://items/Sheet6.png" type="Texture" id=3]
+[ext_resource path="res://menu resource/light png.png" type="Texture" id=4]
+[ext_resource path="res://scenes/equipped.gd" type="Script" id=5]
+[ext_resource path="res://test script/Area2D.gd" type="Script" id=6]
+[ext_resource path="res://Sound/Retro Ambience Stretch Large 01.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sound/jump.wav" type="AudioStream" id=8]
+[ext_resource path="res://Sound/footsteps.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sound/mining.wav" type="AudioStream" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16.2886, 16.0032 )
+extents = Vector2( 14.5098, 15.4909 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 13, 13 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "walk_right"
+length = 1.2
+loop = true
+step = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 5, 1, 5 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 1.2
+loop = true
+step = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 5, 1, 5 ]
+}
 
 [node name="player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -48.2659, 96.5318 )
+scale = Vector2( 2.2, 2 )
+texture = ExtResource( 4 )
+mode = 3
+shadow_enabled = true
+
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+hframes = 4
+vframes = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -21,3 +92,47 @@ editor_draw_drag_margin = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 6 )
+
+[node name="equipped" type="Sprite" parent="Area2D"]
+texture = ExtResource( 3 )
+offset = Vector2( 32, 0 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 32, 0 )
+scale = Vector2( 2, 2 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="idle_damage" type="Timer" parent="."]
+
+[node name="Ambient music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -25.0
+
+[node name="jump sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+
+[node name="mining" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+volume_db = -8.0
+
+[node name="footsteps" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
+volume_db = -8.0
+
+[node name="footsteps_time" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite")
+anims/idle = SubResource( 5 )
+anims/walk_left = SubResource( 4 )
+anims/walk_right = SubResource( 6 )
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="idle_damage" to="." method="_on_idle_damage_timeout"]
+[connection signal="timeout" from="footsteps_time" to="." method="_on_footsteps_time_timeout"]
