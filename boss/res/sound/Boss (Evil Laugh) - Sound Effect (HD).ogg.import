@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Boss (Evil Laugh) - Sound Effect (HD).ogg-b6550cd0e9419977b29839aef079ce59.oggstr"
+
+[deps]
+
+source_file="res://boss/res/sound/Boss (Evil Laugh) - Sound Effect (HD).ogg"
+dest_files=[ "res://.import/Boss (Evil Laugh) - Sound Effect (HD).ogg-b6550cd0e9419977b29839aef079ce59.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
