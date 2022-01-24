@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Concrete_Shoes_Running.wav-6e7677523f21eca77ae59b37c847e4e0.sample"
+
+[deps]
+
+source_file="res://dungeon/res/sounds/Concrete_Shoes_Running.wav"
+dest_files=[ "res://.import/Concrete_Shoes_Running.wav-6e7677523f21eca77ae59b37c847e4e0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

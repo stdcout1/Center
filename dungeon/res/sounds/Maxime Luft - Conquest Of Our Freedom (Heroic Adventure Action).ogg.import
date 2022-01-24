@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Maxime Luft - Conquest Of Our Freedom (Heroic Adventure Action).ogg-7e456098a5c229fbba493a88ae216f11.oggstr"
+
+[deps]
+
+source_file="res://dungeon/res/sounds/Maxime Luft - Conquest Of Our Freedom (Heroic Adventure Action).ogg"
+dest_files=[ "res://.import/Maxime Luft - Conquest Of Our Freedom (Heroic Adventure Action).ogg-7e456098a5c229fbba493a88ae216f11.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

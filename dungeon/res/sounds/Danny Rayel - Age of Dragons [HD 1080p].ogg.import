@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Danny Rayel - Age of Dragons [HD 1080p].ogg-e1b8175489c7f48c8d44132f01e7e161.oggstr"
+
+[deps]
+
+source_file="res://dungeon/res/sounds/Danny Rayel - Age of Dragons [HD 1080p].ogg"
+dest_files=[ "res://.import/Danny Rayel - Age of Dragons [HD 1080p].ogg-e1b8175489c7f48c8d44132f01e7e161.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

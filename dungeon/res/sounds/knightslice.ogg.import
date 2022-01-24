@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/knightslice.ogg-1b93dac21e7be1687b4adeb00b31df79.oggstr"
+
+[deps]
+
+source_file="res://dungeon/res/sounds/knightslice.ogg"
+dest_files=[ "res://.import/knightslice.ogg-1b93dac21e7be1687b4adeb00b31df79.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
